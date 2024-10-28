@@ -1,12 +1,13 @@
 import { Social } from "../../components/Social"
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa"
+import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa"
 import {db} from '../../services/firebaseConnection'
 import { 
     collection, 
     orderBy,
     query, 
-    getDocs, 
+    getDocs,
     getDoc,
     doc, 
      } from "firebase/firestore";
@@ -31,7 +32,7 @@ export function Home(){
     const [socialLinks, setSocialLinks] = useState<SocialLinksProps>();
 
 
-  
+    /*BUSCANDO LINKS NO BANCO DE DADOS*/
     useEffect(() => {
         function LoadLinks(){
             const linksRef = collection(db, 'links')
@@ -59,7 +60,7 @@ export function Home(){
     }, [])
 
 
-
+/*BUSCANDO SOCIAL LINKS NO BANCO DE DADOS*/
     useEffect(() => {
      function loadSocialLinks(){
         const docRef = doc(db, 'social' ,'link')
@@ -83,6 +84,11 @@ export function Home(){
 
     return(
         <div className="flex flex-col w-full py-4 items-center justify-center">
+            <div className="w-full flex flex-row justify-end">
+                <Link className=" flex gap-3 px-5" to={'/login'}>
+                   <p className=" text-white">Login</p>
+                </Link>
+            </div>
             <h1 className="md:text-4xl text-3xl font-bold text-white mt-20">Larissa Fer Make</h1>
             <span className="text-gray-50 mb-5 mt-3">Veja meus links👇</span>
 
@@ -102,7 +108,7 @@ export function Home(){
              </section>
                ))}
 
-               {socialLinks && Object.keys(socialLinks).length > 0 && (
+               {socialLinks && Object.keys(socialLinks).length > 0 && ( 
                 
                 <footer className="flex justify-center gap-3 my-4">
                     <Social url={socialLinks?.facebook}>
@@ -115,6 +121,9 @@ export function Home(){
 
                     <Social url={socialLinks?.whatsapp}>
                         <FaWhatsapp size={35} color="#FFF"/>
+                    </Social>
+                    <Social url={socialLinks?.whatsapp}>
+                        <FaYoutube size={35} color="#FFF"/>
                     </Social>
                 </footer>
                )}

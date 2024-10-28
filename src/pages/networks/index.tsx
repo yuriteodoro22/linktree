@@ -7,6 +7,7 @@ import {
     doc, 
     getDoc 
 } from "firebase/firestore"
+import { toast } from "react-toastify"
 
 export function Networks(){
     const [facebook, setFacebook] = useState('');
@@ -42,7 +43,7 @@ export function Networks(){
             whatsapp: whatsapp
         })
         .then(() => {
-            alert("Cadastrado com sucesso")
+            toast.success("Cadastrado com sucesso")
         })
         .catch((error) => {
             console.log(error)

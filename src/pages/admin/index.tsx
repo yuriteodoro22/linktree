@@ -11,6 +11,7 @@ import {
     orderBy, 
     doc, 
     deleteDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 
     interface LinkProps{
@@ -58,7 +59,7 @@ export function Admin(){
         e.preventDefault();
 
         if(nameInput === '' || urlInput === ''){
-            alert('Preencha todos os campos')
+            toast.warn('Preencha todos os campos')
             return;
         }
 
@@ -72,11 +73,11 @@ export function Admin(){
         .then(()=>{
             setNameInput('');
             setUrlInput('');
-            alert('Cadastrado com sucesso')
+           toast.success('Cadastrado com sucesso')
            
         })
         .catch((error)=>{
-            alert('Erro ao cadastrar no banco' + error)
+            toast.warn('Erro ao cadastrar no banco' + error)
         })
 
     }
